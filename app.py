@@ -1124,16 +1124,21 @@ with tab4:
                         
                         action_label = action_type.split(" ")[0].lower()
                         ax.set_title(f'{player_name}\n({len(actions_df)} {action_label})', color='white', fontsize=12, fontweight='bold')
-                    
-                    plt.tight_layout()
-                    st.pyplot(fig)
-                    plt.close()
-                    
-                    # Leyenda explicativa
-                    if selected_action == 'Shot':
-                        st.caption("🟢 Verde = Gol | Color del jugador = Otros tiros")
-                    elif selected_action == 'Pass':
-                        st.caption("Las flechas muestran la dirección del pase. Rojo = pase fallido")
+                    else:
+                        # Mostrar título incluso sin acciones
+                        action_label = action_type.split(" ")[0].lower()
+                        ax.set_title(f'{player_name}\n(0 {action_label})', color='white', fontsize=12, fontweight='bold')
+                
+                # Renderizar el gráfico UNA SOLA VEZ después de procesar ambos jugadores
+                plt.tight_layout()
+                st.pyplot(fig)
+                plt.close()
+                
+                # Leyenda explicativa (una sola vez)
+                if selected_action == 'Shot':
+                    st.caption("🟢 Verde = Gol | Color del jugador = Otros tiros")
+                elif selected_action == 'Pass':
+                    st.caption("Las flechas muestran la dirección del pase. Rojo = pase fallido")
     else:
         st.warning("⚠️ No se pudieron cargar las competiciones de StatsBomb")
 
